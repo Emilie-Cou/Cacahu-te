@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-export interface IGame {
+interface IGame {
     nbreJoueur : number
     joueurs: IJoueurs[]
 }
@@ -17,18 +17,17 @@ const initialState : IGame = {
 
 }
 
-const NbreSlice = createSlice({
-    name: 'nbre',
+const JeuSlice = createSlice({
+    name: 'Jeu',
     initialState,
     reducers: {
-        setNbre: (state, action : PayloadAction<IGame>) => {
-            console.log('payload', action.payload)
+        setJeu: (state, action : PayloadAction<IGame>) => {
             state.nbreJoueur = action.payload.nbreJoueur
             state.joueurs = action.payload.joueurs
         }
     }
 })
 
-export const { setNbre } = NbreSlice.actions
-export const selectNbre = (state : RootState) => state.nbre
-export default NbreSlice.reducer
+export const { setJeu } = JeuSlice.actions
+export const selectJeu = (state : RootState) => state.jeu
+export default JeuSlice.reducer

@@ -1,4 +1,4 @@
-import { setNbre } from "../store/slices/nbre.slice";
+import { setJeu } from "../store/slices/jeu.slice";
 import { useAppDispatch, useAppSelector } from "../store/hook";
 import { useState } from "react";
 import { useForm} from "react-hook-form";
@@ -17,21 +17,15 @@ function Jeu () {
     });
 
     const onClick = (data: any) => {
-        console.log('data ========= ' , data);
-        if (data.nbreJoueurs) {
-           let nbreJoueurs = parseInt(data.nbreJoueur);
-        }
-        
         setValidate(!validate)
         setBtnDisabled(!btnDisabled)
-        dispatch(setNbre(data))
+        dispatch(setJeu(data))
     }
-    const nbreJoueur = useAppSelector(state => state.nbre.nbreJoueur)
-    console.log('coucou', nbreJoueur);
+    const dataNbreJoueurs = useAppSelector(state => state.jeu.nbreJoueur)
     
     const createForm = () => {
         const forms : JSX.Element[] = []
-        for (let i = 0; i < nbreJoueur; i++) {
+        for (let i = 0; i < dataNbreJoueurs; i++) {
             forms.push(<PersForm key={i} />)
         }
         return forms
@@ -63,7 +57,7 @@ function Jeu () {
                 </button>
                     
 {/* //- Vérification de la valeur */}
-                <h4>Vous êtes {nbreJoueur} personnes.</h4>
+                <h4>Vous êtes {dataNbreJoueurs} personnes.</h4>
 
 {/* //- Si c'est validé, je continue en amenant le form pour les noms */}
                 {validate ? 
