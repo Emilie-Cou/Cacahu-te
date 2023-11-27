@@ -1,77 +1,22 @@
-import { setJeu } from "../store/slices/jeu.slice";
-import { useAppDispatch, useAppSelector } from "../store/hook";
-import { useState } from "react";
-import { useForm} from "react-hook-form";
-import PersForm from "./form/nomPers";
+// import { useAppDispatch } from "../store/hook";
+import { useAppDispatch } from "../store/hook";
+import NbrePersForm from "./form/nbrePers.form";
+import NomPersForm from "./form/nomPers.form";
 
 function Jeu () {
 
     const dispatch = useAppDispatch()
-    const [validate, setValidate] = useState<boolean>(false)
-    const [btnDisabled, setBtnDisabled] = useState<boolean>(false)
 
-    const { handleSubmit, register } = useForm({
-        defaultValues: {
-            nbreJoueur: 4,
-        }
-    });
-
-    const onClick = (data: any) => {
-        setValidate(!validate)
-        setBtnDisabled(!btnDisabled)
-        dispatch(setJeu(data))
-    }
-    const dataNbreJoueurs = useAppSelector(state => state.jeu.nbreJoueur)
-    
-    const createForm = () => {
-        const forms : JSX.Element[] = []
-        for (let i = 0; i < dataNbreJoueurs; i++) {
-            forms.push(<PersForm key={i} />)
-        }
-        return forms
-    }
- 
-    
-
+    const level : number = 1
 
     return (
         <>
-            <form className="formJeu" onSubmit={handleSubmit(onClick)}>
-
-{/* //- Récupération du nombre de personne */}
-                <label htmlFor="nbreJoueur">
-                    Entre le nombre de personne:  
-                </label>
-
-                <input 
-                    {...register('nbreJoueur')}
-                    type="number"
-                    min={3}
-                />
-
-                <button 
-                    type="submit" 
-                    disabled={btnDisabled}
-                    >
-                    Valider
-                </button>
-                    
-{/* //- Vérification de la valeur */}
-                <h4>Vous êtes {dataNbreJoueurs} personnes.</h4>
-
-{/* //- Si c'est validé, je continue en amenant le form pour les noms */}
-                {validate ? 
-                    createForm() 
-                    : 
-                    <p>Quand tu auras validé, tu n'auras plus qu'a rentrer le prénom des personnes qui participent.</p>
-                }
-                
-                <button 
-                    type="button"
-                >
-                    Valider Inutile
-                </button>
-            </form>
+            { level == 0 ?
+                    <NbrePersForm/>
+                    : level == 1 ?
+                        <NomPersForm/>
+                        : "Erreur"
+            }
         </>
     )
 }

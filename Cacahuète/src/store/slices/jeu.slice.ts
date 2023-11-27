@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 interface IGame {
+    level: number
     nbreJoueur : number
     joueurs: IJoueurs[]
 }
@@ -12,6 +13,7 @@ interface IJoueurs {
 }
 
 const initialState : IGame = {
+    level: 0,
     nbreJoueur: 4,
     joueurs: []
 
@@ -22,6 +24,7 @@ const JeuSlice = createSlice({
     initialState,
     reducers: {
         setJeu: (state, action : PayloadAction<IGame>) => {
+            state.level = action.payload.level
             state.nbreJoueur = action.payload.nbreJoueur
             state.joueurs = action.payload.joueurs
         }
